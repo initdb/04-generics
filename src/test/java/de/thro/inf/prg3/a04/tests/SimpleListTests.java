@@ -63,8 +63,8 @@ public class SimpleListTests {
 			}
 		});
 
-		for(Object o : result){
-			int i = (int)o;
+		for(Integer o : result){
+			int i = o;
 			assertTrue(i > 2);
 		}
 	}
