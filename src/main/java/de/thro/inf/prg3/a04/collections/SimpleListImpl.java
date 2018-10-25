@@ -6,12 +6,13 @@ import java.util.Iterator;
  * @author Peter Kurfer
  * Created on 10/6/17.
  */
-public class SimpleListImpl implements SimpleList {
+public class SimpleListImpl<T> implements SimpleList<T> {
 
-	private ListElement head;
+	private ListElement<T> head;
 	private int size;
 
-	public SimpleListImpl() {
+	public SimpleListImpl()
+	{
 		head = null;
 	}
 
@@ -19,11 +20,15 @@ public class SimpleListImpl implements SimpleList {
 	 * Add an object to the end of the list
 	 * @param item item to add
 	 */
-	public void add(Object item){
+	public void add(T item)
+	{
 		/* special case empty list */
-		if(head == null){
+		if(head == null)
+		{
 			head = new ListElement(item);
-		}else {
+		}
+		else
+		{
 			/* any other list length */
 			ListElement current = head;
 			while (current.getNext() != null){
@@ -37,7 +42,8 @@ public class SimpleListImpl implements SimpleList {
 	/**
 	 * @return size of the list
 	 */
-	public int size() {
+	public int size()
+	{
 		return size;
 	}
 
@@ -46,10 +52,13 @@ public class SimpleListImpl implements SimpleList {
 	 * @param filter SimpleFilter instance
 	 * @return new SimpleList instance
 	 */
-	public SimpleList filter(SimpleFilter filter){
-		SimpleList result = new SimpleListImpl();
-		for(Object o : this){
-			if(filter.include(o)){
+	public SimpleList<T> filter(SimpleFilter<T> filter)
+	{
+		SimpleList<T> result = new SimpleListImpl();
+		for(T o : this)
+		{
+			if(filter.include(o))
+			{
 				result.add(o);
 			}
 		}
@@ -60,7 +69,7 @@ public class SimpleListImpl implements SimpleList {
 	 * @inheritDoc
 	 */
 	@Override
-	public Iterator<Object> iterator() {
+	public Iterator<T> iterator() {
 		return new SimpleIterator();
 	}
 
@@ -68,15 +77,16 @@ public class SimpleListImpl implements SimpleList {
 	 * Helper class which implements the Iterator<T> interface
 	 * Has to be non static because otherwise it could not access the head of the list
 	 */
-	private class SimpleIterator implements Iterator<Object> {
-
-		private ListElement current = head;
+	private class SimpleIterator/*<T> hier nicht wegen Überschattung*/ implements Iterator<T>
+	{
+		private ListElement<T> current = head;
 
 		/**
 		 * @inheritDoc
 		 */
 		@Override
-		public boolean hasNext() {
+		public boolean hasNext()
+		{
 			return current != null;
 		}
 
@@ -84,8 +94,8 @@ public class SimpleListImpl implements SimpleList {
 		 * @inheritDoc
 		 */
 		@Override
-		public Object next() {
-			Object tmp = current.getItem();
+		public T next() {
+			T tmp = current.getItem();
 			current = current.getNext();
 			return tmp;
 		}
@@ -95,11 +105,12 @@ public class SimpleListImpl implements SimpleList {
 	 * Helper class for the linked list
 	 * can be static because the ListElement does not need to access the SimpleList instance
 	 */
-	private static class ListElement {
-		private Object item;
+	private static class ListElement<T>
+	{
+		private T item;
 		private ListElement next;
 
-		ListElement(Object item) {
+		ListElement(T item) {
 			this.item = item;
 			this.next = null;
 		}
@@ -107,7 +118,7 @@ public class SimpleListImpl implements SimpleList {
 		/**
 		 * @return get object in the element
 		 */
-		public Object getItem() {
+		public T getItem() {
 			return item;
 		}
 
