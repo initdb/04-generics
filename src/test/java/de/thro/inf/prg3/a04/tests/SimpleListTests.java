@@ -54,9 +54,13 @@ public class SimpleListTests {
 	@Test
 	void testFilterAnonymousClass(){
 		logger.info("Testing the filter possibilities by filtering for all elements greater 2");
-		SimpleList<Integer> result = testList.filter(item -> {
-			int current = item;
-			return current > 2;
+		SimpleList<Integer> result = testList.filter(new SimpleFilter<Integer>() {
+			@Override
+			public boolean include(Integer item)
+			{
+				int current = item;
+				return current > 2;
+			}
 		});
 
 		for(Object o : result){
