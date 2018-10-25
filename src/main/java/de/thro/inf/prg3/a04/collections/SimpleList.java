@@ -7,6 +7,14 @@ public interface SimpleList<T> extends Iterable<T> {
 	void add(T o);
 
 	/**
+	 * add a default instance to the list
+	 */
+	default void addDefault(Class<T> item) throws IllegalAccessException, InstantiationException
+	{
+		add(item.newInstance());
+	}
+
+	/**
 	 * @return current size of the list
 	 */
 	int size();
