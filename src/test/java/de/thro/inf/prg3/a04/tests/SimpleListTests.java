@@ -18,7 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SimpleListTests {
 
 	private final Logger logger = LogManager.getLogger();
-	private SimpleList testList;
+	private SimpleList<Integer> testList;
+	private SimpleList<String> testListString;
 
 	@BeforeEach
 	void setup(){
@@ -29,6 +30,9 @@ public class SimpleListTests {
 		testList.add(3);
 		testList.add(4);
 		testList.add(5);
+
+		testListString = new SimpleListImpl();
+		testListString.add("Hello");
 	}
 
 	@Test
@@ -50,12 +54,9 @@ public class SimpleListTests {
 	@Test
 	void testFilterAnonymousClass(){
 		logger.info("Testing the filter possibilities by filtering for all elements greater 2");
-		SimpleList result = testList.filter(new SimpleFilter() {
-			@Override
-			public boolean include(Object item) {
-				int current = (int)item;
-				return current > 2;
-			}
+		SimpleList<Integer> result = testList.filter(item -> {
+			int current = item;
+			return current > 2;
 		});
 
 		for(Object o : result){
@@ -67,9 +68,9 @@ public class SimpleListTests {
 	@Test
 	void testFilterLambda(){
 		logger.info("Testing the filter possibilities by filtering for all elements which are dividable by 2");
-		SimpleList result = testList.filter(o -> ((int) o) % 2 == 0);
-		for(Object o : result){
-			int i = (int)o;
+		SimpleList<Integer> result = testList.filter(o -> ( o % 2 == 0));
+		for(Integer o : result){
+			int i = o;
 			assertTrue(i % 2 == 0);
 		}
 	}

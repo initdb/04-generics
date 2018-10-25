@@ -69,7 +69,8 @@ public class SimpleListImpl<T> implements SimpleList<T> {
 	 * @inheritDoc
 	 */
 	@Override
-	public Iterator<T> iterator() {
+	public Iterator<T> iterator()
+	{
 		return new SimpleIterator();
 	}
 
@@ -94,7 +95,8 @@ public class SimpleListImpl<T> implements SimpleList<T> {
 		 * @inheritDoc
 		 */
 		@Override
-		public T next() {
+		public T next()
+		{
 			T tmp = current.getItem();
 			current = current.getNext();
 			return tmp;
@@ -110,7 +112,8 @@ public class SimpleListImpl<T> implements SimpleList<T> {
 		private T item;
 		private ListElement next;
 
-		ListElement(T item) {
+		ListElement(T item)
+		{
 			this.item = item;
 			this.next = null;
 		}
@@ -118,14 +121,16 @@ public class SimpleListImpl<T> implements SimpleList<T> {
 		/**
 		 * @return get object in the element
 		 */
-		public T getItem() {
+		public T getItem()
+		{
 			return item;
 		}
 
 		/**
 		 * @return successor of the ListElement - may be NULL
 		 */
-		public ListElement getNext() {
+		public ListElement getNext()
+		{
 			return next;
 		}
 
@@ -133,7 +138,8 @@ public class SimpleListImpl<T> implements SimpleList<T> {
 		 * Sets the successor of the ListElement
 		 * @param next ListElement
 		 */
-		public void setNext(ListElement next) {
+		public void setNext(ListElement next)
+		{
 			this.next = next;
 		}
 	}
